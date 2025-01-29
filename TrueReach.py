@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from   data_processing import merge_track
+from data_processing import merge_track
 from data_processing import merge_artist
 
 def render_truereach_section(chart, mapping, artist, tracks):
