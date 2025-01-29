@@ -39,7 +39,7 @@ def render_landing_section():
     
     
     # Display an image from local file
-    st.image("thumbnail.png", use_column_width=True)
+    st.image("thumbnail.png", use_container_width=True)
 
     st.markdown('<p class="big-title">Welcome to the 2026 Festival Lineup Planner</p>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">Data-Driven Festival Planning Dashboard (2000-2024)</p>', unsafe_allow_html=True)
