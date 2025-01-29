@@ -170,9 +170,9 @@ def render_audio_features(data):
 
                     if selected_artist:
                         # Display a single image of the selected artist
-                        #artist_image_url = get_artist_image(selected_artist)
-                        #if artist_image_url:
-                        #    st.image(artist_image_url, caption=selected_artist, width=700)
+                        artist_image_url = get_artist_image(selected_artist)
+                        if artist_image_url:
+                            st.image(artist_image_url, caption=selected_artist, width=700)
 
                         # Filter data for the selected artist
                         artist_data = valid_data[valid_data["artist"] == selected_artist]
