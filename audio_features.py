@@ -106,11 +106,11 @@ def render_audio_features(data):
                         cols = st.columns(5)  # Create 5 columns
                         for col, (idx, row) in zip(cols, top_tracks.iloc[i:i+5].iterrows()):
                             # Fetch artist image
-                            artist_image_url = get_artist_image(row["Artist"])
+                            #artist_image_url = get_artist_image(row["Artist"])
                             
                             # Display image and text
-                            if artist_image_url:
-                                display_fixed_size_image(col, artist_image_url, alt_text=row["Artist"], size=150)
+                            #if artist_image_url:
+                            #    display_fixed_size_image(col, artist_image_url, alt_text=row["Artist"], size=150)
                             col.write(f"**{row['Artist']}**")
                             col.write(f"*{row['Track']}*")
 
@@ -170,9 +170,9 @@ def render_audio_features(data):
 
                     if selected_artist:
                         # Display a single image of the selected artist
-                        artist_image_url = get_artist_image(selected_artist)
-                        if artist_image_url:
-                            st.image(artist_image_url, caption=selected_artist, width=700)
+                        #artist_image_url = get_artist_image(selected_artist)
+                        #if artist_image_url:
+                        #    st.image(artist_image_url, caption=selected_artist, width=700)
 
                         # Filter data for the selected artist
                         artist_data = valid_data[valid_data["artist"] == selected_artist]
