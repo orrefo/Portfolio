@@ -9,11 +9,11 @@ from pandas.api.types import is_numeric_dtype
 @st.cache_data
 
 def load_data():
-    data = pd.read_excel('points.xlsx')
+    data = pd.read_csv('https://raw.githubusercontent.com/orrefo/Portfolio/refs/heads/new_order/Teamgym_Visualisation_Dashboard/points.csv')
     return data
 
 def load_csv():
-    data = pd.read_csv('points_standard.csv')
+    data = pd.read_csv('https://raw.githubusercontent.com/orrefo/Portfolio/refs/heads/new_order/Teamgym_Visualisation_Dashboard/points_standard.csv')
     return data
 
 df=load_data()
