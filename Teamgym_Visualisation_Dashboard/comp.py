@@ -194,20 +194,22 @@ section = st.sidebar.radio(
 )
 
 if section == "Visualize data":
-    tab1,tab2=st.tabs(['Non_standardized','Standardized'])
+    tab1,tab2=st.tabs(['Non_standardized','With number of dancers added'])
     with tab1:
         st.title("Visualize data")
-        st.write("Visualize the data and find correlations, interactions and trends")
-
+        st.write("Visualize the data and find correlations, interactions and trends. Try to filter out a specific age, team or any combination of the filters.")
         filtered_df=filter_dataframe(df.copy())
         grouper0=st.selectbox('Select grouper',grouper,index=0)
         value0=st.selectbox('Select value',list_values,index=12)       
         fig011= px.box(filtered_df,x='year',y=value0,color=grouper0,points='all',hover_data=grouper)
+        fig011.update_layout(title=f'Distribution of {value0} split by {grouper0} and Year')
         st.plotly_chart(fig011, key="fig011")
+
         scatter1=st.selectbox('Select variable',list_values,index=0)
         scatter2=st.selectbox('Select variable',list_values,index=1)
         grouper1=st.selectbox('Select colour',grouper,index=0)
         fig012=px.scatter(filtered_df,x=scatter1,y=scatter2,color=grouper1,hover_data=grouper,trendline='ols',trendline_scope='overall')
+        fig012.update_layout(title=f'Correlation of {scatter1} and {scatter2}, colored by {grouper1}')
         st.plotly_chart(fig012, key='fig012')
         df_corr = filtered_df[corr_list].corr(numeric_only=True).round(2)
 
@@ -216,17 +218,20 @@ if section == "Visualize data":
         st.plotly_chart(fig022,key='fig022',use_container_width=True)
     with tab2:
         st.title("Visualize data")
-        st.write("Visualize the data and find correlations, interactions and trends, with normalized data")
+        st.write("Visualize the data and find correlations, interactions and trends, with normalized data and labeled number of gymnast in Fristående")
 
         filtered_df=filter_dataframe_norm(dfn.dropna().copy())
         grouper0=st.selectbox('Select grouper',group_norm,index=0,key='norm1')
         value0=st.selectbox('Select value',list_corr_val,index=12,key='norm2')       
         fig0= px.box(filtered_df,x='year',y=value0,color=grouper0,points='all',hover_data=group_norm)
+        fig0.update_layout(title=f'Distribution of {value0} split by {grouper0} and Year')
         st.plotly_chart(fig0, key="fig0")
+
         scatter3=st.selectbox('Select variable',list_corr_val,index=0,key='norm3')
         scatter4=st.selectbox('Select variable',list_corr_val,index=1,key='norm4')
         grouper2=st.selectbox('Select colour',group_norm,index=0,key='norm5')
         fig01=px.scatter(filtered_df,x=scatter3,y=scatter4,color=grouper2,hover_data=group_norm,trendline='ols',trendline_scope='overall')
+        fig01.update_layout(title=f'Correlation of {scatter3} and {scatter4}, colored by {grouper2}')
         st.plotly_chart(fig01, key='fig01')
         df_corr = filtered_df[list_corr_val].corr(numeric_only=True).round(2)
 
@@ -237,9 +242,10 @@ if section == "Visualize data":
 
 elif section == "T-test, Value VS Population": 
     st.title("T-test, Value VS Population")
+    st.write("Do a T-test using any ordinal variable and compare a Value and see if it's significantly better then the comparable population.")
 
     column=st.selectbox("Test on ordinal variable", group_more,index=7)    
-    team1=st.selectbox('Select Value',df[column].unique(),index=1)
+    team1=st.selectbox('Select Value',df[column].unique(),index=2)
     competition_def, age_def, gender_def, qualification_def=filters_suggest(df,team1,column)
     competition_choice=st.multiselect('competition',df['competition'].unique(),competition_def)
     age_choice=st.multiselect('Age',df['age'].unique(),age_def)
@@ -253,7 +259,7 @@ elif section == "T-test, Value VS Population":
     for i in list_values:
       st.write(team1,i)
       fig=px.box(df_choice,y=i,color=(df_choice[column]==team1),points='all',hover_data=grouper)
-      fig.update_layout(title=f'{i} for {team1}')
+      fig.update_layout(title=f'Difference in {i} Between {team1} and comparable population')
     
       st.plotly_chart(fig, key=f"fig{x}")
       test=stats.ttest_ind(df_min_choice[i].dropna(),df_cho[i].dropna())
@@ -267,6 +273,7 @@ elif section == "T-test, Value VS Population":
 
 elif section == "T-test, Value VS Value":
     st.title("T-test, Value VS Value")
+    st.write(' Do a T-test using any ordinal variable and compare two Values and see who is best')
 
     column=st.selectbox("Test on ordinal variable", group_more,index=7)
     left,right=st.columns((1,1))    
@@ -289,7 +296,7 @@ elif section == "T-test, Value VS Value":
     for i in list_values:
       st.write(team1,i)
       fig=px.box(df_two_values,y=i,color=column,points='all',hover_data=grouper)
-      fig.update_layout(title=f'{i} for {team1}')
+      fig.update_layout(title=f'Distribution of {i} for {team1} VS {team2}')
     
       st.plotly_chart(fig, key=f"fig{x}")
       test=stats.ttest_ind(df_min_choice[i].dropna(),df_cho[i].dropna())
@@ -315,7 +322,7 @@ elif section=="Anova for given Variable":
     for i in test_values:
         left, right=st.columns((2.8,1))
         fig=px.box(df_choice,y=i,color=column,points='all',hover_data=grouper)
-        fig.update_layout(title=f'{i} for {column}')
+        fig.update_layout(title=f'Distribution of {i} split by {column}')
         x,y=stats.f_oneway(*[df_choice[df_choice[column] == variant][i].dropna() for variant in df_choice[column].unique()])
         
         left.plotly_chart(fig, key=f"fig{x}")
