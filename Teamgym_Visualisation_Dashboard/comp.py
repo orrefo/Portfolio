@@ -12,12 +12,20 @@ def load_data():
     data = pd.read_excel('points.xlsx')
     return data
 
+def load_csv():
+    data = pd.read_csv('points_standard.csv')
+    return data
+
 df=load_data()
+dfn=load_csv()
 
 list_values=['dfri', 'efri','cfri', 'total_score_fri','dtum', 'etum', 'ctum', 'total_score_tum', 'dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'rank_competition']
 grouper=['competition','year', 'gender', 'qualification', 'age','clean_team']
 group_more=['competition','year', 'gender', 'qualification', 'age','team','clean_team','clean_team_with_number','rank_competition']
 corr_list=['dfri', 'efri','cfri', 'total_score_fri','dtum', 'etum', 'ctum', 'total_score_tum', 'dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'rank_competition','year']
+list_corr_val=['num_fri','dfri', 'efri', 'cfri', 'total_score_fri', 'dtum', 'etum', 'ctum', 'total_score_tum','dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'dfri_norm', 'efri_norm', 'cfri_norm', 'total_score_fri_norm', 'dtum_norm','etum_norm','ctum_norm','total_score_tum_norm','dtram_norm','etram_norm','ctram_norm','total_score_tram_norm','total_score_norm']
+group_norm=['competition','year', 'gender', 'qualification', 'age','team','clean_team','clean_team_with_number','rank_competition','comp_str','num_fri']
+
 
 def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
@@ -57,6 +65,49 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
             else:
                 user_text_input = right.selectbox(
                     f"Substring or regex in {column}",df['clean_team'].unique(),index=1
+                )
+                if user_text_input:
+                    df = df[df[column].astype(str).str.contains(user_text_input)]
+    return df
+
+def filter_dataframe_norm(df: pd.DataFrame) -> pd.DataFrame:
+
+    modify = st.checkbox("Add filters", key='norm')
+
+    if not modify:
+        return df
+
+    df = df.copy()
+
+    modification_container = st.container()
+
+    with modification_container:
+        to_filter_columns = st.multiselect("Filter dataframe on", group_norm)
+        for column in to_filter_columns:
+            left, right = st.columns((1, 20))
+           
+            if df[column].nunique() < 10:
+                user_cat_input = right.multiselect(
+                    f"Values for {column}",
+                    df[column].unique(),
+                    default=list(df[column].unique()),
+                )
+                df = df[df[column].isin(user_cat_input)]
+            elif is_numeric_dtype(df[column]):
+                _min = df[column].min()
+                _max = df[column].max()
+                step = 1
+                user_num_input = right.slider(
+                    f"Values for {column}",
+                    min_value=_min,
+                    max_value=_max,
+                    value=(_min, _max),
+                    step=step,
+                )
+                df = df[df[column].between(*user_num_input)]
+            else:
+                user_text_input = right.selectbox(
+                    f"Substring or regex in {column}",df[column].unique(),index=1
                 )
                 if user_text_input:
                     df = df[df[column].astype(str).str.contains(user_text_input)]
@@ -143,24 +194,46 @@ section = st.sidebar.radio(
 )
 
 if section == "Visualize data":
-    st.title("Visualize data")
-    st.write("visualize the data and find")
+    tab1,tab2=st.tabs(['Non_standardized','Standardized'])
+    with tab1:
+        st.title("Visualize data")
+        st.write("Visualize the data and find correlations, interactions and trends")
 
-    filtered_df=filter_dataframe(df.copy())
-    grouper0=st.selectbox('Select grouper',grouper,index=0)
-    value0=st.selectbox('Select value',list_values,index=12)       
-    fig0= px.box(filtered_df,x='year',y=value0,color=grouper0,points='all',hover_data=grouper)
-    st.plotly_chart(fig0, key="fig0")
-    scatter1=st.selectbox('Select variable',list_values,index=0)
-    scatter2=st.selectbox('Select variable',list_values,index=1)
-    grouper1=st.selectbox('Select colour',grouper,index=0)
-    fig01=px.scatter(filtered_df,x=scatter1,y=scatter2,color=grouper1,hover_data=grouper,trendline='ols',trendline_scope='overall')
-    st.plotly_chart(fig01, key='fig01')
-    df_corr = df[corr_list].corr(numeric_only=True).round(2)
+        filtered_df=filter_dataframe(df.copy())
+        grouper0=st.selectbox('Select grouper',grouper,index=0)
+        value0=st.selectbox('Select value',list_values,index=12)       
+        fig011= px.box(filtered_df,x='year',y=value0,color=grouper0,points='all',hover_data=grouper)
+        st.plotly_chart(fig011, key="fig011")
+        scatter1=st.selectbox('Select variable',list_values,index=0)
+        scatter2=st.selectbox('Select variable',list_values,index=1)
+        grouper1=st.selectbox('Select colour',grouper,index=0)
+        fig012=px.scatter(filtered_df,x=scatter1,y=scatter2,color=grouper1,hover_data=grouper,trendline='ols',trendline_scope='overall')
+        st.plotly_chart(fig012, key='fig012')
+        df_corr = filtered_df[corr_list].corr(numeric_only=True).round(2)
 
-    df_corr_viz = df_corr.dropna(how='all')
-    fig02 = px.imshow(df_corr_viz, text_auto=True,color_continuous_scale='RdBu',color_continuous_midpoint=0)
-    st.plotly_chart(fig02,key='fig02',use_container_width=True)
+        df_corr_viz = df_corr.dropna(how='all')
+        fig022 = px.imshow(df_corr_viz, text_auto=True,color_continuous_scale='RdBu',color_continuous_midpoint=0)
+        st.plotly_chart(fig022,key='fig022',use_container_width=True)
+    with tab2:
+        st.title("Visualize data")
+        st.write("Visualize the data and find correlations, interactions and trends, with normalized data")
+
+        filtered_df=filter_dataframe_norm(dfn.dropna().copy())
+        grouper0=st.selectbox('Select grouper',group_norm,index=0,key='norm1')
+        value0=st.selectbox('Select value',list_corr_val,index=12,key='norm2')       
+        fig0= px.box(filtered_df,x='year',y=value0,color=grouper0,points='all',hover_data=group_norm)
+        st.plotly_chart(fig0, key="fig0")
+        scatter3=st.selectbox('Select variable',list_corr_val,index=0,key='norm3')
+        scatter4=st.selectbox('Select variable',list_corr_val,index=1,key='norm4')
+        grouper2=st.selectbox('Select colour',group_norm,index=0,key='norm5')
+        fig01=px.scatter(filtered_df,x=scatter3,y=scatter4,color=grouper2,hover_data=group_norm,trendline='ols',trendline_scope='overall')
+        st.plotly_chart(fig01, key='fig01')
+        df_corr = filtered_df[list_corr_val].corr(numeric_only=True).round(2)
+
+        df_corr_viz = df_corr.dropna(how='all')
+        fig02 = px.imshow(df_corr_viz, text_auto=True,color_continuous_scale='RdBu',color_continuous_midpoint=0)
+        st.plotly_chart(fig02,key='fig02',use_container_width=True)
+
 
 elif section == "T-test, Value VS Population": 
     st.title("T-test, Value VS Population")
@@ -228,10 +301,17 @@ elif section == "T-test, Value VS Value":
 
 elif section=="Anova for given Variable":
     st.title("ANOVA for given Variable")
-    column=st.selectbox("Do ANOVA on", grouper,index=0)
-    df_choice=filter_dataframe(df.copy())
+    only_num_fri=st.checkbox('with only labeld number in fri')
+    if only_num_fri==True:
+        column=st.selectbox("Do ANOVA on", group_norm,index=10)
+        df_choice=filter_dataframe_norm(dfn.dropna().copy())
+        choice_stand=['efri_norm','dfri_norm','total_score_fri_norm','total_score_fri','total_score_norm','total_score']
+    else:
+        column=st.selectbox("Do ANOVA on", grouper,index=0)
+        df_choice=filter_dataframe(dfn.copy())
+        choice_stand=['total_score','total_score_fri','total_score_tum','total_score_tram']
     x=61
-    test_values=st.multiselect('What to test',list_values,['total_score','total_score_fri','total_score_tum','total_score_tram'])
+    test_values=st.multiselect('What to test',list_corr_val,choice_stand)
     for i in test_values:
         left, right=st.columns((2.8,1))
         fig=px.box(df_choice,y=i,color=column,points='all',hover_data=grouper)
@@ -242,10 +322,12 @@ elif section=="Anova for given Variable":
         anova_info=pd.DataFrame()
         for ix in df_choice[column].unique():
             temp=round(df_choice[df_choice[column]==ix][i].mean(),2)
-            anova_info=pd.concat([anova_info,pd.DataFrame({ 'Group':[ix],'Mean':[temp]})], ignore_index=True)
-        right.dataframe(anova_info)
+            count=df_choice[df_choice[column]==ix][i].count()
+            anova_info=pd.concat([anova_info,pd.DataFrame({ 'Group':[ix],'Mean':[temp],'Count':[count]})], ignore_index=True)
+        right.dataframe(anova_info,hide_index=True)
         right.write(f'F-value: {round(x,1)}')
-        right.write(f'p-value: {y}')    
+        right.write(f'P-value: {y}')
+        right.write(f'N= {anova_info['Count'].sum()}')    
         st.markdown("""---""")
 
         x+=1
