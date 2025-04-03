@@ -19,11 +19,11 @@ def load_csv():
 df=load_data()
 dfn=load_csv()
 
-list_values=['dfri', 'efri','cfri', 'total_score_fri','dtum', 'etum', 'ctum', 'total_score_tum', 'dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'rank_competition']
+list_values=['dfri', 'efri','cfri', 'total_score_fri','dtum', 'etum', 'ctum', 'total_score_tum', 'dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'rank_competition','total_e_score','total_d_score']
 grouper=['competition','year', 'gender', 'qualification', 'age','clean_team']
 group_more=['competition','year', 'gender', 'qualification', 'age','team','clean_team','clean_team_with_number','rank_competition']
 corr_list=['dfri', 'efri','cfri', 'total_score_fri','dtum', 'etum', 'ctum', 'total_score_tum', 'dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'rank_competition','year']
-list_corr_val=['num_fri','dfri', 'efri', 'cfri', 'total_score_fri', 'dtum', 'etum', 'ctum', 'total_score_tum','dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'dfri_norm', 'efri_norm', 'cfri_norm', 'total_score_fri_norm', 'dtum_norm','etum_norm','ctum_norm','total_score_tum_norm','dtram_norm','etram_norm','ctram_norm','total_score_tram_norm','total_score_norm']
+list_corr_val=['num_fri','dfri', 'efri', 'cfri', 'total_score_fri', 'dtum', 'etum', 'ctum', 'total_score_tum','dtram', 'etram', 'ctram', 'total_score_tram', 'total_score', 'dfri_norm', 'efri_norm', 'cfri_norm', 'total_score_fri_norm', 'dtum_norm','etum_norm','ctum_norm','total_score_tum_norm','dtram_norm','etram_norm','ctram_norm','total_score_tram_norm','total_score_norm','total_e_score','total_d_score']
 group_norm=['competition','year', 'gender', 'qualification', 'age','team','clean_team','clean_team_with_number','rank_competition','comp_str','num_fri']
 
 
@@ -316,7 +316,7 @@ elif section=="Anova for given Variable":
     else:
         column=st.selectbox("Do ANOVA on", grouper,index=0)
         df_choice=filter_dataframe(dfn.copy())
-        choice_stand=['total_score','total_score_fri','total_score_tum','total_score_tram']
+        choice_stand=['total_score','total_score_fri','total_score_tum','total_score_tram','total_e_score','total_d_score']
     x=61
     test_values=st.multiselect('What to test',list_corr_val,choice_stand)
     for i in test_values:
