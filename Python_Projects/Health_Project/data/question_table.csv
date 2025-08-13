@@ -1,0 +1,85 @@
+question,description,wvs7,wvs6
+A001,Important in life: Family,Q1,V4
+A002,Important in life: Friends,Q2,V5
+A003,Important in life: Leisure time,Q3,V6
+A004,Important in life: Politics,Q4,V7
+A005,Important in life: Work,Q5,V8
+A006,Important in life: Religion,Q6,V9
+A008,Feeling of happiness,Q46,V10
+A009,State of health (subjective),Q47,V11
+A099,Active/Inactive membership of sport or recreation,Q95,V26
+A170,Satisfaction with your life,Q49,V23
+A173,How much freedom of choice and control,Q48,V55
+C006,Satisfaction with financial situation of household,Q50,V59
+E035,Income equality,Q106,V96
+E040,Hard work brings success,Q110,V100
+E124,Respect for individual human rights nowadays,Q253,V142
+E220,We depend too much on science and not enough on faith,Q160,V194
+E235,Importance of democracy,Q250,V140
+E236,Democraticness in own country,Q251,V141
+E268,"Scale corruption in [my country] - pay a bribe, give a gift, do a favor to other to get things",Q112,
+F028,How often do you attend religious services,Q171,V145
+F028B,How often to you pray,Q172,V146
+F063,How important is God in your life,Q164,V152
+G006,How proud of nationality,Q254,V211
+G027A,Respondent immigrant,Q263,V245
+G255,"How close you feel: Your [village, town or city]",Q255,
+H001,Secure in neighborhood,Q131,V170
+H006_01,Worries: Losing my job or not finding a job,Q142,V181
+H006_02,Worries: Not being able to give one's children a good education,Q143,V182
+H006_03,Worries: A war involving my country,Q146,V183
+H006_04,Worries: A terrorist attack,Q147,V184
+H006_05,Worries: A civil war,Q148,V185
+S002VS,Chronology of EVS-WVS waves,A_WAVE,V1
+S003,ISO 3166-1 numeric country code,B_COUNTRY,V2
+S017,Weight,W_WEIGHT,V258
+S018,Equilibrated weight-1000,S018,S018
+S020,Year survey,A_YEAR,V262
+X001,Sex,Q260,V240
+X003,Age,Q262,V242
+X007,Marital status,Q273,V57
+X011,How many children do you have,Q274,V58
+X013,Number of people in household,Q270,
+X025A_01,Highest educational level attained - Respondent ISCED-2011,Q275,
+X028,Employment status,Q279,V229
+X045,Social class (subjective),Q287,V238
+X047_WVS,Scale of incomes,Q288,V239
+X049,Settlement size,G_TOWNSIZE,V253
+X050C,Urban/Rural habitat,H_URBRURAL,
+Y001,Post-Materialist index 12-item,Y001,Y001
+Y002,Post-Materialist index 4-item,Y002,Y002
+Y003,Autonomy Index,Y003,Y003
+Y010,SACSECVAL.- Welzel Overall Secular Values,SACSECVAL,SACSECVAL
+Y011,DEFIANCE.- Welzel defiance sub-index,DEFIANCE,DEFIANCE
+Y011A,AUTHORITY - Welzel defiance - 1: Inverse respect for authority,I_AUTHORITY,I_AUTHORITY
+Y011B,NATIONALISM - Welzel defiance - 2: Inverse national pride,I_NATIONALISM,I_NATIONALISM
+Y011C,DEVOUT- Welzel defiance - 3: Inverse devoutness,I_DEVOUT,I_DEVOUT
+Y012,DISBELIEF.- Welzel disbelief sub-index,DISBELIEF,DISBELIEF
+Y012A,RELIGIMP - Welzel disbelief- 1: Inverse importance of religion,I_RELIGIMP,I_RELIGIMP
+Y012B,RELIGBEL - Welzel disbelief- 2: Inverse religious person,I_RELIGBEL,I_RELIGBEL
+Y012C,RELIGPRAC - Welzel disbelief- 3: Inverse religious practice,I_RELIGPRAC,I_RELIGPRAC
+Y013,RELATIVISM.- Welzel relativism,RELATIVISM,RELATIVISM
+Y013A,NORM1 - Welzel relativism- 1: Inverse norm conform1,I_NORM1,I_NORM1
+Y013B,NORM2 - Welzel relativism- 2: Inverse norm conform2,I_NORM2,I_NORM2
+Y013C,NORM3 - Welzel relativism- 3: Inverse norm conform3,I_NORM3,I_NORM3
+Y014,SCEPTICISM.- Welzel scepticism index,SCEPTICISM,SCEPTICISM
+Y014A,TRUSTARMY- Welzel scepticism- 1: Inverse trust in army,I_TRUSTARMY,I_TRUSTARMY
+Y014B,TRUSTPOLICE- Welzel scepticism- 2: Inverse trust in police,I_TRUSTPOLICE,I_TRUSTPOLICE
+Y014C,TRUSTCOURTS- Welzel scepticism- 3: Inverse trust in courts,I_TRUSTCOURTS,I_TRUSTCOURTS
+Y020,RESEMAVAL.- Welzel emancipative values,RESEMAVAL,RESEMAVAL
+Y021,AUTONOMY.- Wezel Autonomy subindex,AUTONOMY,AUTONOMY
+Y021A,INDEP- Welzel autonomy-1: Independence as kid quality,I_INDEP,I_INDEP
+Y021B,IMAGIN- Welzel autonomy-2: Imagination as kid quality,I_IMAGIN,I_IMAGIN
+Y021C,NONOBED- Welzel autonomy-3: Obedience as kid quality,I_NONOBED,I_NONOBED
+Y022,EQUALITY.- Welzel equality sub-index,EQUALITY,EQUALITY
+Y022A,WOMJOB- Welzel equality-1: Gender equality: job,I_WOMJOB,I_WOMJOB
+Y022B,WOMPOL- Welzel equality-2: Gender equality: politics,I_WOMPOL,I_WOMPOL
+Y022C,WOMEDU- Welzel equality-3: Gender equality: education,I_WOMEDU,I_WOMEDU
+Y023,CHOICE.- Welzel choice sub-index,CHOICE,CHOICE
+Y023A,HOMOLIB- Welzel choice-1: Homosexuality acceptance,I_HOMOLIB,I_HOMOLIB
+Y023B,ABORTLIB- Welzel choice-2: Abortion acceptable,I_ABORTLIB,I_ABORTLIB
+Y023C,DIVORLIB- Welzel choice-3: Divorce acceptable,I_DIVORLIB,I_DIVORLIB
+Y024,VOICE.- Welzel voice sub-index,VOICE,VOICE
+Y024A,VOICE1- Welzel voice-1,I_VOICE1,I_VOICE1
+Y024B,VOICE2- Welzel voice-2,I_VOICE2,I_VOICE2
+Y024C,VOI2_00- Welzel voice-3 (auxiliary),I_VOI2_00,I_VOI2_00
