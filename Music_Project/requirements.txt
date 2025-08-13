@@ -1,0 +1,3 @@
+plotly
+spotipy
+plotly.express
